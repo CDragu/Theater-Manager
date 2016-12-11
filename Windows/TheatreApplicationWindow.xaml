@@ -1,0 +1,326 @@
+﻿<Window x:Class="TheatreManagerApplication.Windows.TheatreApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheatreManagerApplication.Windows"
+        mc:Ignorable="d"
+        Title="TheatreApplicationWindow" WindowState="Maximized" Loaded="Window_Loaded" Height="1063.95" Width="1167.833">
+    <Grid>
+
+        <TabControl>
+            <!--Stores the Tabs with User Controls for every View-->
+            <!--Booking Tab-->
+            <TabItem Name="BookingTab" Header="Booking">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="162" />
+                        <RowDefinition Height="366" />
+                        <RowDefinition Height="354" />
+                        <RowDefinition Height="404"/>
+                    </Grid.RowDefinitions>
+                    <!--Seat Selection Area-->
+                    <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+                        <TextBlock Text="Theatre Seats Selection Area" HorizontalAlignment="Center" FontSize="20px" FontWeight="SemiBold"></TextBlock>
+                        <StackPanel Name="BookingTabSeatAreaStackPanel" Background="WhiteSmoke">
+                        </StackPanel>
+                    </StackPanel>
+                    <!--Booking Data Input Area-->
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Customer Information" HorizontalAlignment="Center" FontSize="20px" FontWeight="SemiBold" Margin="92,5" Width="201"></TextBlock>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="15,30,15,15" Background="Azure">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <CheckBox Name="BookingTabIsMemberCheckbox" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Will be a Gold Club Member" 
+                                   Margin="5"/>
+                        <CheckBox Name="IsMember" Grid.Column="1"  Grid.Row="0"  Content="Is Already a Member" 
+                                  Checked="BookingTabIsMemberCheckbox_Checked" Unchecked="BookingTabIsMemberCheckbox_Unchecked" Margin="175,5,5,5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Name" Margin="5"></TextBlock>
+                        <TextBox Name="BookingTabCustomerNameTextBox" Grid.Column="1" Grid.Row="1" Text="Input name" Margin="5,5,5,0" TextChanged="BookingTabCustomerNameTextBox_TextChanged" GotFocus="BookingTabCustomerNameTextBox_GotFocus" Height="18" VerticalAlignment="Top"></TextBox>
+                        <!--IF NOT CHECKED GC MEMBER-->
+                        <TextBlock Name="BookingTabEmailTextBlock"  Grid.Column="0" Grid.Row="2" Text="Email" Margin="5"></TextBlock>
+                        <TextBox Name="BookingTabEmailTextBox" Grid.Column="1" Grid.Row="2" Text="Input email" Margin="5" GotFocus="BookingTabEmailTextBox_GotFocus"></TextBox>
+                        <Button Name="BookingTabAddAsMemberButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Add as a Member" Margin="40,10,40,0" Padding="5" Click="BookingTabAddAsMemberButton_Click" ></Button>
+                        <!--IF CHECKED GC MEMBER-->
+                        <ListBox Name="BookingTabSearchGoldClubMembersListBox" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="5,5,5,-89" Visibility="Collapsed" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Height="60" />
+                    </Grid>
+                    <!--Booking Information Area-->
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Create Booking" HorizontalAlignment="Center" FontSize="20px" FontWeight="DemiBold" Margin="123,0" Width="139"></TextBlock>
+                    <Grid Grid.Column="1" Grid.Row="1" Margin="10,35,20,10" Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Booking ID" Margin="5"></TextBlock>
+                        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock Name="BookingTabBookingIDTextBlock"  Grid.Column="0" Grid.Row="0" Text="" Margin="5"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,6,5,5" Text="Play Date:"/>
+
+
+
+                        <StackPanel Grid.Column="1" Grid.Row="1">
+                            <DatePicker Grid.Column="1" Grid.Row="2" Name="BookingTabDatePicker" DatePicker.SelectedDateChanged="BookingTabDatePicker_SelectedDateChanged" Margin="5" CalendarClosed="BookingTabDatePicker_CalendarClosed">
+                            </DatePicker>
+                            <ListBox Name="BookingTabPerformanceListBox" Height="75px" Margin="5" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" MouseDoubleClick="BookingTabPerformanceListBox_MouseDoubleClick">
+                            </ListBox>
+                        </StackPanel>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Seats selected:" Margin="5"></TextBlock>
+                        <DockPanel Grid.Column="1" Grid.Row="3"  Margin="5">
+                            <Button Name="BookingTabDeleteSeatButton" DockPanel.Dock="Right" Content="X" Click="BookingTabDeleteSeatButton_Click" Height="20px" Width="20px" Background="Red" Margin="5" >
+                            </Button>
+                            <ListBox Name="BookingTabSelectedSeatsListBox" DockPanel.Dock="Left" Height="100px">
+                            </ListBox>
+                        </DockPanel>
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Price:" Margin="5"></TextBlock>
+                        <TextBox Name="BookingTabPriceTextBox" Grid.Column="1" Grid.Row="4" Text="" IsReadOnly="True" Margin="5"></TextBox>
+                        <Button Name="BookingTabCreateBookingButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="Create Booking" Margin="40,10,40,0" Padding="5" Click="BookingTabCreateBookingButton_Click"></Button>
+                    </Grid>
+                    <TextBlock Grid.Column="1"  Grid.Row="2" Text="Edit Booking" HorizontalAlignment="Center" FontSize="20px" FontWeight="SemiBold" Margin="135,5,134,5" Width="116" Grid.RowSpan="2"></TextBlock>
+                    <Grid Grid.Column="1" Grid.Row="2" Margin="15,30,15,291" Background="Azure" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Name" Margin="5"></TextBlock>
+                        <TextBox Name="BookingTabCustomerNameTextBox1" Grid.Column="1" Grid.Row="1" Text="Input name" Margin="5,5,5,0" Height="18" VerticalAlignment="Top" GotFocus="BookingTabCustomerNameTextBox1_GotFocus"/>
+                        <!--IF NOT CHECKED GC MEMBER-->
+                        <TextBlock Name="BookingTabEmailTextBlock1"  Grid.Column="0" Grid.Row="2" Text="Email" Margin="5"></TextBlock>
+                        <TextBox Name="BookingTabEmailTextBox1" Grid.Column="1" Grid.Row="2" Text="Input email" Margin="5" GotFocus="BookingTabEmailTextBox1_GotFocus"/>
+                        <Button Name="SearchBookin" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Search Booking" Margin="40,10,40,0" Padding="5" Click="SearchBookin_Click" />
+                        <ListBox Name="ListOfBookings" Grid.Row="4" Height="75px" Margin="0,5,10,5" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2" MouseDoubleClick="ListOfBookings_MouseDoubleClick"/>
+                        <TextBlock Grid.Column="0" Grid.Row="5" Text="Seats selected:" Margin="5"></TextBlock>
+                        <DockPanel Grid.Column="0" Grid.Row="6"  Margin="5,5,10,5" Grid.ColumnSpan="2">
+                            <Button Name="BookingTabDeleteSeatButton1" DockPanel.Dock="Right" Content="X" Height="20px" Width="20px" Background="Red" Margin="5" Click="BookingTabDeleteSeatButton1_Click" />
+                            <ListBox Name="BookingTabSelectedSeatsListBox1" DockPanel.Dock="Left" Height="100px">
+                            </ListBox>
+                        </DockPanel>
+                        <Button Name="BookingTabCreateBookingButton1" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" Content="Save" Margin="40,10,40,0" Padding="5" Click="BookingTabCreateBookingButton1_Click"></Button>
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="11" Orientation="Horizontal" Margin="5">
+                            <RadioButton Name="PlaysTabMajorPlayRadioButton1" Content="Paid" Margin="5"></RadioButton>
+                            <RadioButton x:Name="PlaysTabMinorPlayRadioButton1" HorizontalAlignment="Right"  Content="Unpaid" Margin="5"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Grid.Column="0"  Grid.Row="3" Text="Stage" HorizontalAlignment="Center" FontSize="40px" FontWeight="SemiBold" Margin="334,0" Width="101"  />
+                </Grid>
+            </TabItem>
+
+            <!--Plays Tab-->
+            <TabItem Name="PlaysTab" Header="Plays">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="15" Background="Azure">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="Play Information" HorizontalAlignment="Center" FontSize="18px" FontWeight="SemiBold" Margin="5"></TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Name:" Margin="5"></TextBlock>
+                        <TextBox Name="NameTag" Grid.Column="1" Grid.Row="1" Text="Input name" Margin="5" GotFocus="NameTag_GotFocus"></TextBox>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Author:" Margin="5"></TextBlock>
+                        <TextBox Name="AuthorTag" Grid.Column="1" Grid.Row="2" Text="Input author" Margin="5" GotFocus="AuthorTag_GotFocus"></TextBox>
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Base Price:" Margin="5"></TextBlock>
+                        <TextBox Name="BasePriceTag" Grid.Column="1" Grid.Row="4" Text="Input base price" Margin="5" GotFocus="BasePriceTag_GotFocus"></TextBox>
+                        <TextBlock Grid.Column="0" Grid.Row="5" Text="Start date:" Margin="5"></TextBlock>
+                        <DatePicker Name="PlaysTabFirstPerformanceDatePicker" Grid.Column="1" Grid.Row="5" Margin="5"></DatePicker>
+                        <TextBlock Name="PlaysTabLastPerformanceDateTextBlock" Grid.Column="0" Grid.Row="6" Text="Last performance:" Margin="5"></TextBlock>
+                        <DatePicker Name="PlaysTabLastPerformanceDatePicker" Grid.Column="1" Grid.Row="6" Margin="5"></DatePicker>
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Orientation="Horizontal" Margin="5">
+                            <RadioButton Name="PlaysTabMajorPlayRadioButton" Content="Major Play" Margin="5"></RadioButton>
+                            <RadioButton Name="PlaysTabMinorPlayRadioButton" Content="Minor Play" Margin="5"></RadioButton>
+                            <RadioButton Name="PlaysTabOneTimePerformanceRadioButton" Content="One Time Performance" 
+                                         Checked="PlaysTabOneTimePerformanceRadioButton_Checked" Unchecked="PlaysTabOneTimePerformanceRadioButton_Unchecked" Margin="5"></RadioButton>
+                        </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                            <Button Name="PlaysTabAddPlayButton" Content="Add Play" Margin="5" Padding="5" Click="PlaysTabAddPlayButton_Click"></Button>
+                            <Button Name="PlaysTabEditPlayButton" Content="Edit Play" Margin="5" Padding="5" Click="PlaysTabEditPlayButton_Click"></Button>
+                            <Button Name="PlaysTabDeletePlayButton" Content="Delete Play" Margin="5" Padding="5" Click="PlaysTabDeletePlayButton_Click"></Button>
+                        </StackPanel>
+                        <Button Name="PlaysTabSearchPlayButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Content="Search for Play" Margin="5" Padding="5" Click="PlaysTabSearchPlayButton_Click"></Button>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="15" Background="OldLace">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="List of Performances" FontSize="16px" FontWeight="SemiBold" Margin="5"></TextBlock>
+                        <ListBox Name="PlaysTabPerformancesListBox" Grid.Row="1" Margin="5" Height="250" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="15" Background="Cornsilk">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="List of Plays" FontSize="16px" FontWeight="SemiBold" Margin="5"></TextBlock>
+                        <ListBox Name="PlaysTabPlaysListBox" Grid.Row="1" Margin="5" MouseDoubleClick="PlaysTabPlaysListBox_MouseDoubleClick" Height="550" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <CheckBox Name="PlaysTabShowActiveCheckBox" Content="Show Active" IsChecked="True" Checked="PlaysTabShowActiveCheckBox_Checked" Unchecked="PlaysTabShowActiveCheckBox_Unchecked" Margin="5"></CheckBox>
+                            <CheckBox Name="PlaysTabShowInactiveCheckBox" Content="Show Inactive" Checked="PlaysTabShowInactiveCheckBox_Checked" Unchecked="PlaysTabShowInactiveCheckBox_Unchecked" Margin="5"></CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!--GoldClub Tab-->
+            <TabItem Name="GoldClubTab" Header="Manager Functions">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="276*" />
+                        <ColumnDefinition Width="665*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="194" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="15" Background="Azure">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="Delete Customer Panel" HorizontalAlignment="Center" FontSize="18px" FontWeight="SemiBold" Margin="5"></TextBlock>
+
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Name:" Margin="5"></TextBlock>
+                        <TextBox Name="ManagerTabDeleteCustomerName" Grid.Column="1" Grid.Row="2" Text="Input name" Margin="5" GotFocus="ManagerTabDeleteCustomerName_GotFocus"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Email:" Margin="5"></TextBlock>
+                        <TextBox Name="ManagerTabDeleteCustomerEmail" Grid.Column="1" Grid.Row="3" Text="Input email" Margin="5" GotFocus="ManagerTabDeleteCustomerEmail_GotFocus"/>
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+
+                            <Button Name="ManagerTabDeleteCustomerButton" Content="Delete Member" Margin="5" Padding="5" Height="40" Click="ManagerTabDeleteCustomerButton_Click"></Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1" Height="200" VerticalAlignment="Top" Margin="15" Background="Azure">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="Renew Gold Club Membership" HorizontalAlignment="Center" FontSize="18px" FontWeight="SemiBold" Margin="5"></TextBlock>
+
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Name:" Margin="5"></TextBlock>
+                        <TextBox Name="ManagerTabGoldClubName" Grid.Column="1" Grid.Row="2" Text="Input name" Margin="5" GotFocus="ManagerTabGoldClubName_GotFocus"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Email:" Margin="5"></TextBlock>
+                        <TextBox Name="ManagerTabGoldClubEmail" Grid.Column="1" Grid.Row="3" Text="Input email" Margin="5" GotFocus="ManagerTabGoldClubEmail_GotFocus"/>
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                            <Button Name="ManagerTabGoldClubButton" Content="Renew or Convert" Margin="5" Padding="5" Height="40" Click="ManagerTabGoldClubButton_Click"></Button>
+
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="15"  Background="Azure">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="Reports Panel" HorizontalAlignment="Center" FontSize="18px" FontWeight="SemiBold" Margin="5"></TextBlock>
+
+
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Vertical" HorizontalAlignment="Center" Margin="5">
+                            
+                            <TextBox Name="Year" Loaded="Year_Loaded" ></TextBox>
+                            <Button Name="CreateSaleReport" Content="Create Sale Report" Margin="5" Padding="5" Height="40" Click="CreateSaleReport_Click"></Button>
+                            <Button Name="CreateListOfGoldClubMembers" Content="Create List Of Gold Club Members" Margin="5" Padding="5" Height="40" Click="CreateListOfGoldClubMembers_Click"></Button>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
